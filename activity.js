@@ -13,14 +13,10 @@ export default(props) => {
         <View style={{width:"25%", flex:1, flexDirection:"row", justifyContent:"center",alignItems:"center"}}>
           <TouchableHighlight onPress={() =>{
           console.log("notif activity");
-          if(notifBool === true){
-            setNotifBool(false);
-          }else{
-            setNotifBool(true);
-          }
+          props.notifTggl(props.keyId);
           }}
           underlayColor="white">
-            <Ionicon color={notifBool? "#FDA700" : "grey"} style={{marginRight:15}} size={25} name="notifications-sharp"></Ionicon>
+            <Ionicon color={props.notif? "#FDA700" : "grey"} style={{marginRight:15}} size={25} name="notifications-sharp"></Ionicon>
           </TouchableHighlight>
           <TouchableHighlight style={{borderRadius:100, backgroundColor:"red"}} onPress={() =>{
             console.log("delete activity");

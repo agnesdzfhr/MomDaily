@@ -20,10 +20,6 @@ let currentHours = d.getHours;
 currentHours = ("0" + currentHours).slice(-2);
 
 
-function addZeroBefore(n) {
-  return (n < 10 ? '0' : '') + n;
-}
-
 function formatAMPM(date) {
   var hours = date.getHours();
   var minutes = date.getMinutes();
@@ -59,12 +55,9 @@ function compareStrings(a, b) {
    bFirst = b.split(" ").shift();
   console.log("bfirst " + bFirst)
   const result = aSecond.localeCompare(bSecond);
-
-
-
-
   return result !== 0 ? result : aFirst.localeCompare(bFirst);
 }
+
 
 class App extends Component {
   constructor(props){
@@ -106,9 +99,21 @@ class App extends Component {
     data = cloneActivity;
     this.setState(initialState);
     this.storeData(data);
-    console.log(cloneActivity)
   }
 
+  notifToggle = (index) => {
+    let cloneActivity = [...data];
+    
+    if(cloneActivity[index].notif === true){
+      cloneActivity[index].notif = false;
+    }else{
+      cloneActivity[index].notif = true;
+    }
+    data = cloneActivity;
+    this.storeData(data);
+    this.setState(initialState);
+
+  }
 
   render() {
     return (
@@ -173,8 +178,7 @@ class App extends Component {
       {data.map((key, i)=>{
         return(
           <View key={i}>
-            <Activity keyId={i} activity={key.activity} time={key.time} notif={key.notif} remove={this.removeActivity}></Activity>
-            {/* <Text style={{fontSize:50}}>HELLO WORD</Text> */}
+            <Activity keyId={i} activity={key.activity} time={key.time} notif={key.notif} remove={this.removeActivity} notifTggl={this.notifToggle}></Activity>
           </View>
         )
       })}
